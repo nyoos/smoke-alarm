@@ -77,7 +77,7 @@ exports.delete_record = async (req, res, next) => {
     if (!record) {
       return res.status(404).json({ err: `record with id ${req.params.id} not found` });
     }
-    res.status(200).json({ msg: `record ${req.params.id} deleted sucessfuly` });
+    res.status(200).json({ msg: `record ${req.params.id} deleted sucessfully` });
   } catch (err) {
     next(err);
   }

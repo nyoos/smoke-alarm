@@ -32,10 +32,21 @@ def get_followers():
 
 def get_tweets(user_id):
 	params = {
-		"max_results":100
+		"max_results":100,
+		"tweet.fields":"created_at"
 	}
 	user_timeline = twitter_get(TWITTER_BEARER_TOKEN, f"https://api.twitter.com/2/users/{user_id}/tweets", params=params)
+	return user_timeline.json()["data"]
 
+def get_time_limited_tweets(user_id,time):
+	params = {
+		"max_results":100,
+		"start_time":time,
+		"tweet.fields":"created_at"
+	}
+	user_timeline = twitter_get(TWITTER_BEARER_TOKEN, f"https://api.twitter.com/2/users/{user_id}/tweets", params=params)
+	if user_timeline.json()['meta']['result_count'] == 0:
+		return []
 	return user_timeline.json()["data"]
 
 def get_user_id(username):

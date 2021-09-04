@@ -1,28 +1,33 @@
 import requests
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+HUGGINGFACE_API_KEY = os.environ.get("HUGGINGFACE_API_KEY")
 
 def analyse_tweets(tweets):
 
   def clean_data(data):
     token_to_label = {"LABEL_0": "anger", "LABEL_1":"joy","LABEL_2":"optimism","LABEL_3":"sadness"}
-    for line in data:
-      for datapoint in line:
-        datapoint['label'] = token_to_label[datapoint['label']]
-    
-  def generate_report(data):
-    length = len(data)
     report = {"anger":0,"joy":0,"optimism":0,"sadness":0}
-    for datapoint in data:
-      for label in datapoint:
-        report[label['label']] += label['score']
-    for key in report.keys():
-      report[key] /= length
+    for datapoint in data[0]:
+      report[token_to_label[datapoint['label']]] = datapoint["score"]
     return report
+    
+  # def generate_report(data):
+  #   length = len(data)
+  #   report = {"anger":0,"joy":0,"optimism":0,"sadness":0}
+  #   for datapoint in data:
+  #     for label in datapoint:
+  #       report[label['label']] += label['score']
+  #   for key in report.keys():
+  #     report[key] /= length
+  #   return report
 
   
 
   API_URL = "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-emotion"
-  headers = {"Authorization": "Bearer "}
-  
+  headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
 
   payload = {
     "inputs": tweets,
@@ -30,11 +35,7 @@ def analyse_tweets(tweets):
 
   response = requests.post(API_URL, headers=headers, json=payload)
   output = response.json()
-
-  clean_data(output)
-  report = generate_report(output)
-  
-  return report
+  return clean_data(output)
 
 def analyse_trend(history,thresholds):
   ## thresholds = {continuous_decrease,frequency}
