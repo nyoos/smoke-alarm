@@ -1,3 +1,3 @@
-# burnout-detector
+# Smoke Alarm
 
-https://stackoverflow.com/questions/62338454/heroku-not-working-for-node-js-file-with-python-scripts
+Smoke alarm is a twitter bot that helps users track their mood and stress levels over time through emotion analysis of previous tweets.
