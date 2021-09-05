@@ -13,6 +13,14 @@ const should_notify = (tweets) => {
   }
 };
 
+const persistent_stress_check = (tweets) => {
+  stress_ratings = 0;
+  tweets.forEach((tweet) => {
+    stress_ratings += tweet["sadness"] + tweet["anger"];
+  });
+  stress_ratings /= tweets.length;
+  return stress_ratings > 0.6;
+};
 const correlation_analysis = (tweets) => {
   const time = [],
     stress_ratings = [];
