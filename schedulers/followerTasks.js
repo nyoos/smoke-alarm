@@ -12,7 +12,7 @@ const get_followers_from_db = async () => {
 const get_followers_from_twitter = async () => {
   return new Promise((resolve, reject) => {
     let followers;
-    const python = spawn("python", ["./scripts/read_followers.py"]);
+    const python = spawn("python", ["../scripts/read_followers.py"]);
     python.stdout.on("data", function (data) {
       console.log("Reading twitter followers..");
       followers = data.toString();
