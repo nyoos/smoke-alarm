@@ -25,7 +25,7 @@ def twitter_post(bearer_token, url, params):
 	return response
 
 def get_followers():
-
+	return TWITTER_BEARER_TOKEN
 	response = twitter_get(TWITTER_BEARER_TOKEN, f"https://api.twitter.com/2/users/{TWITTER_USER_ID}/followers",None)
 	return response.json()["data"]
 

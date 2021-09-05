@@ -16,6 +16,7 @@ const get_followers_from_twitter = async () => {
     python.stdout.on("data", function (data) {
       console.log("Reading twitter followers..");
       followers = data.toString();
+      console.log(followers);
       followers = JSONbigString.parse(followers);
     });
     python.on("close", (code) => {
