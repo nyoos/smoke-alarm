@@ -7,7 +7,8 @@ const Statistics = require("./statistics.js/statistics.js");
 const should_notify = (tweets) => {
   try {
     const score = correlation_analysis(tweets);
-    return score > 0.2;
+    average_stress = persistent_stress_check(tweets);
+    return score > 0.2 || average_stress > 0.6;
   } catch {
     return false;
   }
@@ -19,7 +20,7 @@ const persistent_stress_check = (tweets) => {
     stress_ratings += tweet["sadness"] + tweet["anger"];
   });
   stress_ratings /= tweets.length;
-  return stress_ratings > 0.6;
+  return stress_ratings;
 };
 const correlation_analysis = (tweets) => {
   const time = [],
