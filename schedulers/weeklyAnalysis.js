@@ -2,7 +2,7 @@ const followerTasks = require("./followerTasks");
 const tweetTasks = require("./tweetTasks");
 const getUnixTime = require("date-fns/getUnixTime");
 const Record = require("../models/record");
-const Statistics = require("./statistics.js/statistics.js.js");
+const Statistics = require("./statistics.js/statistics.js");
 
 const should_notify = (tweets) => {
   try {
